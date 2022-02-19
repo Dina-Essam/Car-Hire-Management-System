@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
@@ -51,6 +51,33 @@ with app.app_context():
     # Closing the cursor
     cursor.close()
 
+
+@app.route('/customers', methods=['POST'])
+def add_customer():
+    cursor = None
+    try:
+        # validate the received values
+        if request.method == 'POST':
+            _fname = request.form.get('first_name')
+            _lname = request.form.get('last_name')
+            _email = request.form.get('email')
+            _phone = request.form.get('phone_number')
+            if _fname and _email and _phone and _lname:
+
+                message = {
+                    'status': 200,
+                    'message': 'Customer added successfully',
+                }
+                resp = jsonify(message)
+                resp.status_code = 200
+                return resp
+            else:
+                abort(400)
+        else:
+            abort(404)
+    finally:
+        if cursor:
+            cursor.close()
 
 
 @app.errorhandler(404)
