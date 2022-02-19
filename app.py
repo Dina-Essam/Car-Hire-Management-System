@@ -80,6 +80,36 @@ def add_customer():
             cursor.close()
 
 
+@app.route('/customers/<int:id>', methods=['GET','PUT','DELETE'])
+def updateCustomer(id):
+    cursor = None
+    try:
+        if request.method == 'GET':
+            cursor = mysql.connection.cursor()
+            cursor.execute("SELECT * FROM CUSTOMER WHERE CUSTOMER_ID=%s", str(id))
+            row = cursor.fetchone()
+            if row:
+                message = {
+                    'status': 200,
+                    'data': row,
+                }
+                resp = jsonify(message)
+                resp.status_code = 200
+                return resp
+            else:
+                message = {
+                    'status': 400,
+                    'message': 'Customer Not Found',
+                }
+                resp = jsonify(message)
+                resp.status_code = 400
+                return resp
+    finally:
+        if cursor:
+            cursor.close()
+
+
+
 @app.errorhandler(404)
 def not_found(error=None):
     message = {
