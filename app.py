@@ -80,7 +80,7 @@ def add_customer():
             cursor.close()
 
 
-@app.route('/customers/<int:id>', methods=['GET','PUT','DELETE'])
+@app.route('/customers/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def updateCustomer(id):
     cursor = None
     try:
@@ -104,6 +104,58 @@ def updateCustomer(id):
                 resp = jsonify(message)
                 resp.status_code = 400
                 return resp
+        elif request.method == 'DELETE':
+            cursor = mysql.connection.cursor()
+            cursor.execute("DELETE FROM CUSTOMER WHERE CUSTOMER_ID=%s", (str(id),))
+            mysql.connection.commit()
+            deleted_row_count = cursor.rowcount
+            if deleted_row_count > 0:
+                message = {
+                    'status': 200,
+                    'message': "Customer deleted successfully",
+                }
+                resp = jsonify(message)
+                resp.status_code = 200
+                return resp
+            else:
+                message = {
+                    'status': 400,
+                    'message': 'Customer Not Found',
+                }
+                resp = jsonify(message)
+                resp.status_code = 400
+                return resp
+        elif request.method == 'PUT':
+            _fname = request.form.get('first_name')
+            _lname = request.form.get('last_name')
+            _email = request.form.get('email')
+            _phone = request.form.get('phone_number')
+            if _fname and _email and _phone and _lname:
+                sql = "UPDATE CUSTOMER SET FIRST_NAME=%s, LAST_NAME=%s, EMAIL_ADDRESS=%s, TELEPHONE_NUMBER=%s " \
+                      "WHERE CUSTOMER_ID=%s"
+                data = (_fname, _lname, _email, _phone, id)
+                cursor = mysql.connection.cursor()
+                cursor.execute(sql, data)
+                mysql.connection.commit()
+                updated_row_count = cursor.rowcount
+                if updated_row_count > 0:
+                    message = {
+                        'status': 200,
+                        'message': "Customer update successfully",
+                    }
+                    resp = jsonify(message)
+                    resp.status_code = 200
+                    return resp
+                else:
+                    message = {
+                        'status': 400,
+                        'message': 'Customer Not Found',
+                    }
+                    resp = jsonify(message)
+                    resp.status_code = 400
+                    return resp
+            else:
+                abort(400)
     finally:
         if cursor:
             cursor.close()
