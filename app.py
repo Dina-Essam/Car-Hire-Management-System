@@ -1,12 +1,30 @@
 from flask import Flask, jsonify, request
+from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 with app.app_context():
     app.config.from_object('config.DevConfig')
+    mysql = MySQL(app)
 
-@app.route('/')
-def hello_world():  # put application's code here
-    return 'Hello World!'
+    # Creating a connection cursor
+    cursor = mysql.connection.cursor()
+
+    # Executing SQL Statements
+    cursor.execute('''CREATE TABLE IF NOT EXISTS CUSTOMER	(
+         CUSTOMER_ID	INTEGER NOT NULL AUTO_INCREMENT,
+         FIRST_NAME	VARCHAR(30) NOT NULL,
+         LAST_NAME	VARCHAR(30) NOT NULL,
+         EMAIL_ADDRESS	VARCHAR(64) NOT NULL,
+         TELEPHONE_NUMBER	CHAR(12) NOT NULL,
+          PRIMARY KEY	(CUSTOMER_ID))''')
+
+
+    # Saving the Actions performed on the DB
+    mysql.connection.commit()
+
+    # Closing the cursor
+    cursor.close()
+
 
 
 @app.errorhandler(404)
