@@ -6,19 +6,19 @@
 Details: The main focus of the business is renting cars and vans, and the database is to manage the
 booking system.
 1. Vehicles are categorized into small cars (suitable for carrying up to 4 people), family cars
-(suitable for carrying up to 7 adults), and vans.
+(suitable for carrying up to 7 adults), and vans.<br>
 2. Information stored for each booking includes customer, car, date of hire and date on which the
-vehicle is to be returned.
-3. A customer cannot hire a car for longer than a week.
+vehicle is to be returned.<br>
+3. A customer cannot hire a car for longer than a week.<br>
 4. If a vehicle is available, the customer&#39;s details are recorded (if not stored already) and a new
-booking is made.
+booking is made.<br>
 5. Potential or existing customers can book a vehicle up to 7 days in advance depending on
-availability.
-6. Customers must pay for the vehicle at the time of hire.
-7. On receiving an enquiry, employees are required to check availability of cars and vans.
-8. An invoice is written at the time of booking for the customer.
-9. If the booking has been made in advance, a confirmation letter will be sent to the customer.
-10. A report is printed at the start of each day showing the bookings for that particular day.
+availability.<br>
+6. Customers must pay for the vehicle at the time of hire.<br>
+7. On receiving an enquiry, employees are required to check availability of cars and vans.<br>
+8. An invoice is written at the time of booking for the customer.<br>
+9. If the booking has been made in advance, a confirmation letter will be sent to the customer.<br>
+10. A report is printed at the start of each day showing the bookings for that particular day.<br>
 
 <h2>To run locally, do the usual:</h2>
 
