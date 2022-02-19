@@ -20,6 +20,10 @@ availability.<br>
 9. If the booking has been made in advance, a confirmation letter will be sent to the customer.<br>
 10. A report is printed at the start of each day showing the bookings for that particular day.<br>
 
+
+<h2>ERD</h2>
+<img src="https://github.com/Dina-Essam/Car-Hire-Management-System/blob/main/erdCarRent.PNG?raw=true"/>
+
 <h2>To run locally, do the usual:</h2>
 
 1- Install pipenv<br>
